@@ -34,5 +34,6 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web"){
         exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
     }
+    compile("javax.servlet:javax.servlet-api")
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
