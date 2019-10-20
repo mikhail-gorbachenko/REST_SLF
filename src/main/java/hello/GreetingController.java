@@ -100,10 +100,10 @@ public class GreetingController {
         return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
 
-    @PutMapping(path = "/users/{userID}" , consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<User> updateUser(@PathVariable String UserID, @Valid @RequestBody UpdateUserRequestModel userRequest) {
+    @PutMapping(path = "/users/{userID}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<User> updateUser(@PathVariable String userID, @Valid @RequestBody UpdateUserRequestModel userRequest) {
 
-        User storedUser = users.get(UserID);
+        User storedUser = users.get(userID);
         if (!userRequest.getFirstName().isEmpty())
             storedUser.setFirstName(userRequest.getFirstName());
         if (!userRequest.getLastName().isEmpty())
@@ -113,7 +113,7 @@ public class GreetingController {
         if (!userRequest.getPassword().isEmpty())
             storedUser.setPassword(userRequest.getPassword());
 
-        users.put(UserID, storedUser);
+        users.put(userID, storedUser);
 
         return new ResponseEntity<User>(storedUser, HttpStatus.OK);
     }
