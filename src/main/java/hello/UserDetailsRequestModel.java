@@ -12,8 +12,8 @@ public class UserDetailsRequestModel {
     @NotNull(message = "Last name must be not empty")
     private String lastName;
     @NotNull(message = "Email name must be not empty")
-    private String email;
     @Email
+    private String email;
     @NotNull(message = "Id name must be not empty")
     @Size(min=3, max = 8, message = "id must be between 3 and 8 characters")
     private String id;
