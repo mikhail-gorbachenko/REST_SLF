@@ -70,4 +70,14 @@ public class GreetingController {
         return new ResponseEntity<User>(user, HttpStatus.ACCEPTED);
     }
 
+    @PostMapping(path = "/users", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<User> createUser(@RequestBody UserDetailsRequestModel userRequest) {
+        User user = new User();
+        user.setId(userRequest.getId());
+        user.setEmail(userRequest.getEmail());
+        user.setFirstName(userRequest.getFirstName());
+        user.setLastName(userRequest.getLastName());
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+    }
+
 }
