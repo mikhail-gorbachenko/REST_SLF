@@ -118,4 +118,12 @@ public class GreetingController {
         return new ResponseEntity<User>(storedUser, HttpStatus.OK);
     }
 
+    @DeleteMapping(path = "/users/{userID}")
+    public ResponseEntity deleteUser(@PathVariable String userId) {
+
+        users.remove(userId);
+
+        return ResponseEntity.noContent().build();
+    }
+
 }
