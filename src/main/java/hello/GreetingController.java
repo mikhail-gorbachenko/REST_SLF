@@ -33,8 +33,21 @@ public class GreetingController {
 
 
     @GetMapping(path="/users/{userID}")
-    public String pathParam(@PathVariable String userID){
+    public String getUser(@PathVariable String userID){
         return "Call user info with ID = " + userID;
+    }
+
+    @GetMapping(path="/users")
+    public String getUsers(@RequestParam(value = "page") int page,
+                                 @RequestParam(value = "limit") int limit){
+
+        StringBuilder returnValue = new StringBuilder("Page " + page + " Limit " + limit + "\n");
+
+        for (int i = 0; i < limit; i++) {
+            returnValue.append("User id ").append(i).append("\n");
+        }
+
+        return returnValue.toString();
     }
 
 
