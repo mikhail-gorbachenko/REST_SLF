@@ -17,18 +17,18 @@ public class GreetingController {
     }
 
     @PostMapping
-    public String post(){
-        return "Post";
+    public Greeting post(){
+        return new Greeting(counter.incrementAndGet(), String.format(TEMPLATE, "post"));
     }
 
     @PutMapping
-    public String put(){
-        return "put";
+    public Greeting put(){
+        return new Greeting(counter.incrementAndGet(), String.format(TEMPLATE, "put"));
     }
 
     @DeleteMapping
-    public String delete(){
-        return "Delete";
+    public Greeting delete(){
+        return new Greeting(counter.incrementAndGet(), String.format(TEMPLATE, "delete"));
     }
 
 
