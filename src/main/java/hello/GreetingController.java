@@ -11,26 +11,31 @@ public class GreetingController {
     private static final String TEMPLATE = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
-    @GetMapping(path="/rest")
+    @GetMapping(path="/hrest")
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name){
         return new Greeting(counter.incrementAndGet(), String.format(TEMPLATE, name));
     }
 
-    @PostMapping
+    @PostMapping(path="/hrest")
     public Greeting post(){
         return new Greeting(counter.incrementAndGet(), String.format(TEMPLATE, "post"));
     }
 
-    @PutMapping
+    @PutMapping(path="/hrest")
     public Greeting put(){
         return new Greeting(counter.incrementAndGet(), String.format(TEMPLATE, "put"));
     }
 
-    @DeleteMapping
+    @DeleteMapping(path="/hrest")
     public Greeting delete(){
         return new Greeting(counter.incrementAndGet(), String.format(TEMPLATE, "delete"));
     }
 
+
+    @GetMapping(path="/users/{userID}")
+    public String pathParam(@PathVariable String userID){
+        return "Call user info with ID = " + userID;
+    }
 
 
 }
