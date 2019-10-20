@@ -104,13 +104,13 @@ public class GreetingController {
     public ResponseEntity<User> updateUser(@PathVariable String userID, @Valid @RequestBody UpdateUserRequestModel userRequest) {
 
         User storedUser = users.get(userID);
-        if (!userRequest.getFirstName().isEmpty())
+        if (!userRequest.getFirstName().equals("null"))
             storedUser.setFirstName(userRequest.getFirstName());
-        if (!userRequest.getLastName().isEmpty())
+        if (!userRequest.getLastName().equals("null"))
             storedUser.setLastName(userRequest.getLastName());
-        if (!userRequest.getEmail().isEmpty())
+        if (!userRequest.getEmail().equals("null"))
             storedUser.setEmail(userRequest.getEmail());
-        if (!userRequest.getPassword().isEmpty())
+        if (!userRequest.getPassword().equals("null"))
             storedUser.setPassword(userRequest.getPassword());
 
         users.put(userID, storedUser);
