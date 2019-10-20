@@ -1,17 +1,19 @@
 package hello;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
-@RequestMapping("/greeting")
+@RequestMapping(value = "/greeting", produces = {"application/json" , "application/xml"})
 public class GreetingController {
 
     private static final String TEMPLATE = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
-    @GetMapping(path="/hrest")
+    @GetMapping(path="/hrest" )
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name){
         return new Greeting(counter.incrementAndGet(), String.format(TEMPLATE, name));
     }
@@ -32,7 +34,7 @@ public class GreetingController {
     }
 
 
-    @GetMapping(path="/users/{userID}")
+    @GetMapping(path="/users/{userID}" )
     public String getUser(@PathVariable String userID){
         return "Call user info with ID = " + userID;
     }
@@ -42,7 +44,7 @@ public class GreetingController {
                                  @RequestParam(value = "limit", defaultValue = "10") int limit,
                            @RequestParam(value = "Hug-A-Duck", required = false) boolean hug){
 
-        StringBuilder returnValue = new StringBuilder("Page " + page + " Limit " + limit + "\n" + "Hug a Duck " + hug);
+        StringBuilder returnValue = new StringBuilder("Page " + page + " Limit " + limit  + "Hug a Duck " + hug + "\n");
 
         for (int i = 0; i < limit; i++) {
             returnValue.append("User id ").append(i).append("\n");
