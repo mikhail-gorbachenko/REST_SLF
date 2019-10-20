@@ -1,5 +1,6 @@
 package hello;
 
+import jdk.internal.net.http.common.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,15 @@ import java.util.UUID;
 public class UserServerImpl implements UserService {
 
     private Map<String, User> users;
+    IdGenerator generator;
+
+    public UserServerImpl(){}
+
+    @Autowired
+    public UserServerImpl(IdGenerator generator){
+        this.generator = generator;
+    }
+
 
     @Override
     public User createUser(UserDetailsRequestModel userRequest) {
@@ -20,7 +30,7 @@ public class UserServerImpl implements UserService {
         user.setFirstName(userRequest.getFirstName());
         user.setLastName(userRequest.getLastName());
 
-        String userId = UUID.randomUUID().toString();
+        String userId = generator.GenerateUserID();
         user.setId(userId);
         if(users==null) users = new HashMap<>();
         users.put(userId, user);
