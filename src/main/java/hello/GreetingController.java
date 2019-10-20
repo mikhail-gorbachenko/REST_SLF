@@ -7,13 +7,13 @@ import java.awt.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
-@RequestMapping(value = "/greeting")
+@RequestMapping(value = "/greeting" , produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 public class GreetingController {
 
     private static final String TEMPLATE = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
-    @GetMapping(path="/hrest", produces = {"application/json" , "application/xml"} )
+    @GetMapping(path="/hrest")
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name){
         return new Greeting(counter.incrementAndGet(), String.format(TEMPLATE, name));
     }
