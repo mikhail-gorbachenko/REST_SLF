@@ -81,7 +81,7 @@ public class GreetingController {
             return new ResponseEntity<>(users.get(userID), HttpStatus.FOUND);
         }
 
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND)
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping(path = "/users", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
