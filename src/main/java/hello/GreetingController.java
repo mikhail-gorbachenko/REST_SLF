@@ -38,8 +38,8 @@ public class GreetingController {
     }
 
     @GetMapping(path="/users")
-    public String getUsers(@RequestParam(value = "page") int page,
-                                 @RequestParam(value = "limit") int limit){
+    public String getUsers(@RequestParam(value = "page" , defaultValue = "0") int page,
+                                 @RequestParam(value = "limit", defaultValue = "10") int limit){
 
         StringBuilder returnValue = new StringBuilder("Page " + page + " Limit " + limit + "\n");
 
