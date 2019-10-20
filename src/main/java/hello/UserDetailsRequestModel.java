@@ -1,7 +1,9 @@
 package hello;
 
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class UserDetailsRequestModel {
 
@@ -11,7 +13,9 @@ public class UserDetailsRequestModel {
     private String lastName;
     @NotNull(message = "Email name must be not empty")
     private String email;
+    @Email
     @NotNull(message = "Id name must be not empty")
+    @Size(min=3, max = 8, message = "id must be between 3 and 8 characters")
     private String id;
 
     public String getFirstName() {
