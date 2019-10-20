@@ -60,5 +60,14 @@ public class GreetingController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @GetMapping(path = "/response/users/{userID}")
+    public ResponseEntity<User> getUserWithResponse(@PathVariable String userID) {
+        User user = new User();
+        user.setId(userID);
+        user.setEmail("sabaka@gav.rr");
+        user.setFirstName("Twilight");
+        user.setLastName("Sparkle");
+        return new ResponseEntity<User>(user, HttpStatus.ACCEPTED);
+    }
 
 }
