@@ -39,9 +39,10 @@ public class GreetingController {
 
     @GetMapping(path="/users")
     public String getUsers(@RequestParam(value = "page" , defaultValue = "0") int page,
-                                 @RequestParam(value = "limit", defaultValue = "10") int limit){
+                                 @RequestParam(value = "limit", defaultValue = "10") int limit,
+                           @RequestParam(value = "Hug-A-Duck", required = false) boolean hug){
 
-        StringBuilder returnValue = new StringBuilder("Page " + page + " Limit " + limit + "\n");
+        StringBuilder returnValue = new StringBuilder("Page " + page + " Limit " + limit + "\n" + "Hug a Duck " + hug);
 
         for (int i = 0; i < limit; i++) {
             returnValue.append("User id ").append(i).append("\n");
