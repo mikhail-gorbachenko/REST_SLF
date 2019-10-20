@@ -100,4 +100,22 @@ public class GreetingController {
         return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
 
+    @PutMapping(path = "/users/{userID}" , consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<User> updateUser(@PathVariable String UserId, @Valid @RequestBody UpdateUserRequestModel userRequest) {
+
+        User storedUser = users.get(UserId);
+        if (!userRequest.getFirstName().isEmpty())
+            storedUser.setFirstName(userRequest.getFirstName());
+        if (!userRequest.getLastName().isEmpty())
+            storedUser.setLastName(userRequest.getLastName());
+        if (!userRequest.getEmail().isEmpty())
+            storedUser.setEmail(userRequest.getEmail());
+        if (!userRequest.getPassword().isEmpty())
+            storedUser.setPassword(userRequest.getPassword());
+
+        users.put(UserId, storedUser);
+
+        return new ResponseEntity<User>(storedUser, HttpStatus.OK);
+    }
+
 }
