@@ -1,6 +1,7 @@
 package hello;
 
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,8 @@ public class GreetingController {
     private static final String TEMPLATE = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
     private Map<String, User> users;
+    @Autowired
+    UserService userService;
 
     @GetMapping(path = "/hrest")
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
@@ -86,17 +89,8 @@ public class GreetingController {
 
     @PostMapping(path = "/users", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<User> createUser(@Valid @RequestBody UserDetailsRequestModel userRequest) {
-        User user = new User();
-        user.setId(userRequest.getPassword());
-        user.setEmail(userRequest.getEmail());
-        user.setFirstName(userRequest.getFirstName());
-        user.setLastName(userRequest.getLastName());
 
-        String userId = UUID.randomUUID().toString();
-        user.setId(userId);
-        if(users==null) users = new HashMap<>();
-        users.put(userId, user);
-
+        User user = userService.createUser(userRequest);
         return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
 
