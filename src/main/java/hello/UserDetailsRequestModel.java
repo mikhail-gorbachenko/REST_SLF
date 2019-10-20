@@ -8,8 +8,10 @@ import javax.validation.constraints.Size;
 public class UserDetailsRequestModel {
 
     @NotNull(message = "First name must be not empty")
+    @Size(min=3, message = "First name must be not less then 3 characters")
     private String firstName;
     @NotNull(message = "Last name must be not empty")
+    @Size(min=3, message = "Last name must be not less then 3 characters")
     private String lastName;
     @NotNull(message = "Email name must be not empty")
     @Email
