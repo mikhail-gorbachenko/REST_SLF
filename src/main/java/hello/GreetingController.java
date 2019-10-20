@@ -119,9 +119,9 @@ public class GreetingController {
     }
 
     @DeleteMapping(path = "/users/{userID}")
-    public ResponseEntity deleteUser(@PathVariable String userId) {
+    public ResponseEntity<Void> deleteUser(@PathVariable String userID) {
 
-        users.remove(userId);
+        users.remove(userID);
 
         return ResponseEntity.noContent().build();
     }
