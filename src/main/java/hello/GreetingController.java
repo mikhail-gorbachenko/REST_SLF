@@ -1,12 +1,15 @@
 package hello;
 
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
@@ -15,6 +18,7 @@ public class GreetingController {
 
     private static final String TEMPLATE = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
+    private Map<String, User> users;
 
     @GetMapping(path = "/hrest")
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
@@ -36,11 +40,6 @@ public class GreetingController {
         return new Greeting(counter.incrementAndGet(), String.format(TEMPLATE, "delete"));
     }
 
-
-    @GetMapping(path = "/users/{userID}")
-    public String getUser(@PathVariable String userID) {
-        return "Call user info with ID = " + userID;
-    }
 
     @GetMapping(path = "/users")
     public String getUsers(@RequestParam(value = "page", defaultValue = "0") int page,
@@ -71,13 +70,33 @@ public class GreetingController {
         return new ResponseEntity<User>(user, HttpStatus.ACCEPTED);
     }
 
+   /* @GetMapping(path = "/users/{userID}")
+    public String getUser(@PathVariable String userID) {
+        return "Call user info with ID = " + userID;
+    } */
+
+    @GetMapping(path = "/users/{userID}")
+    public ResponseEntity<User> getUser(@PathVariable String userID) {
+        if(users.containsKey(userID)) {
+            return new ResponseEntity<>(users.get(userID), HttpStatus.FOUND);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND)
+    }
+
     @PostMapping(path = "/users", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<User> createUser(@Valid @RequestBody UserDetailsRequestModel userRequest) {
         User user = new User();
-        user.setId(userRequest.getId());
+        user.setId(userRequest.getPassword());
         user.setEmail(userRequest.getEmail());
         user.setFirstName(userRequest.getFirstName());
         user.setLastName(userRequest.getLastName());
+
+        String userId = UUID.randomUUID().toString();
+        user.setId(userId);
+        if(users==null) users = new HashMap<>();
+        users.put(userId, user);
+
         return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
 

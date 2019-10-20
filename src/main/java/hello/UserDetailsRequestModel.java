@@ -16,9 +16,9 @@ public class UserDetailsRequestModel {
     @NotNull(message = "Email name must be not empty")
     @Email
     private String email;
-    @NotNull(message = "Id name must be not empty")
-    @Size(min=3, max = 8, message = "id must be between 3 and 8 characters")
-    private String id;
+    @NotNull(message = "Password name must be not empty")
+    @Size(min=3, max = 8, message = "Password must be between 3 and 8 characters")
+    private String password;
 
     public String getFirstName() {
         return firstName;
@@ -44,12 +44,12 @@ public class UserDetailsRequestModel {
         this.email = email;
     }
 
-    public String getId() {
-        return id;
+    public String getPassword() {
+        return password;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }
