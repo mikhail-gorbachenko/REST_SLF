@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -71,7 +72,7 @@ public class GreetingController {
     }
 
     @PostMapping(path = "/users", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<User> createUser(@RequestBody UserDetailsRequestModel userRequest) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody UserDetailsRequestModel userRequest) {
         User user = new User();
         user.setId(userRequest.getId());
         user.setEmail(userRequest.getEmail());

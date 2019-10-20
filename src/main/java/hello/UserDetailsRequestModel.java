@@ -1,10 +1,17 @@
 package hello;
 
+
+import javax.validation.constraints.NotNull;
+
 public class UserDetailsRequestModel {
 
+    @NotNull(message = "First name must be not empty")
     private String firstName;
+    @NotNull(message = "Last name must be not empty")
     private String lastName;
+    @NotNull(message = "Email name must be not empty")
     private String email;
+    @NotNull(message = "Id name must be not empty")
     private String id;
 
     public String getFirstName() {
